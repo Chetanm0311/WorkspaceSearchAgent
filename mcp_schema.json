@@ -1,0 +1,265 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "Workplace Search Agent MCP",
+    "description": "Model Context Protocol server for workplace search",
+    "version": "1.0.0",
+    "x-mcp-schema": {
+      "functions": [
+        {
+          "name": "search_documents",
+          "description": "Search for documents, messages, and knowledge base entries across multiple sources",
+          "parameters": {
+            "type": "object",
+            "properties": {
+              "query": {
+                "type": "string",
+                "description": "Search query"
+              },
+              "sources": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": ["gdrive", "notion", "slack", "confluence"]
+                },
+                "description": "Sources to search from"
+              },
+              "max_results": {
+                "type": "integer",
+                "description": "Maximum number of results to return",
+                "default": 10
+              }
+            },
+            "required": ["query"]
+          }
+        },
+        {
+          "name": "summarize_content",
+          "description": "Summarize or extract key points from retrieved content",
+          "parameters": {
+            "type": "object",
+            "properties": {
+              "document_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "IDs of documents to summarize"
+              },
+              "max_length": {
+                "type": "integer",
+                "description": "Maximum length of the summary",
+                "default": 500
+              }
+            },
+            "required": ["document_ids"]
+          }
+        },
+        {
+          "name": "get_recent_updates",
+          "description": "Get recent updates from documents, messages, and knowledge base entries",
+          "parameters": {
+            "type": "object",
+            "properties": {
+              "sources": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": ["gdrive", "notion", "slack", "confluence"]
+                },
+                "description": "Sources to get updates from"
+              },
+              "days": {
+                "type": "integer",
+                "description": "Number of days to look back",
+                "default": 7
+              },
+              "max_results": {
+                "type": "integer",
+                "description": "Maximum number of results to return",
+                "default": 10
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "paths": {
+    "/mcp/search": {
+      "post": {
+        "summary": "Search documents",
+        "operationId": "search_documents",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SearchRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mcp/summarize": {
+      "post": {
+        "summary": "Summarize content",
+        "operationId": "summarize_content",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SummarizeRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SummarizeResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mcp/updates": {
+      "post": {
+        "summary": "Get recent updates",
+        "operationId": "get_recent_updates",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatesRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdatesResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "summary": "Health check",
+        "operationId": "health_check",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "SearchRequest": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Search query"
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["gdrive", "notion", "slack", "confluence"]
+            },
+            "description": "Sources to search from"
+          },
+          "max_results": {
+            "type": "integer",
+            "description": "Maximum number of results to return",
+            "default": 10
+          }
+        },
+        "required": ["query"]
+      },
+      "SummarizeRequest": {
+        "type": "object",
+        "properties": {
+          "document_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "IDs of documents to summarize"
+          },
+          "max_length": {
+            "type": "integer",
+            "description": "Maximum length of the summary",
+            "default": 500
+          }
+        },
+        "required": ["document_ids"]
+      },
+      "UpdatesRequest": {
+        "type": "object",
+        "properties": {
+          "sources": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["gdrive", "notion", "slack", "confluence"]
+            },
+            "description": "Sources to get updates from"
+          },
+          "days": {
+            "type": "integer",
+            "description": "Number of days to look back",
+            "default": 7
+          },
+          "max_results": {
+            "type": "integer",
+            "description": "Maximum number of results to return",
+            "default": 10
+          }
+        }
+      }
+    }
+  }
+}
