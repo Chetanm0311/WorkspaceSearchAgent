@@ -1,5 +1,18 @@
-# WorkplaceSearchAgent MCP Server - User Guide
 
+**This Project we are doing as a part of MCP Hackathon [https://www.hackerearth.com/challenges/hackathon/mcp-hackathon] Theme-2**
+# Title: AI-Powered Workplace Search [WorkplaceSearchAgent MCP Server]
+**Description**: Build an MCP server that lets agents search, retrieve, and summarize content from tools like Google Drive, Notion, Slack, or Confluence. Agents can help users find documents, answer questions, or pull recent updates while respecting authentication and access scopes. This service gives agents structured, secure access to internal knowledge.
+
+**Example Features**:
+1.  Search documents, messages, and knowledge base entries
+2.  Summarize or extract key points from retrieved content
+3.  Support scoped, user-specific access with Descope
+4.  Secure all agent interactions using the Cequence MCP proxy
+
+**Team**:
+1. Chetan Mali
+2. Abhijeet Rajput
+#
 This comprehensive guide will walk you through setting up and running the WorkplaceSearchAgent MCP (Model Context Protocol) server, which enables AI agents to search and retrieve content from workplace tools like Google Drive, Notion, Slack, and Confluence.
 
 ## Table of Contents
