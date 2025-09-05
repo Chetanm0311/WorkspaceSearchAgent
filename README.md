@@ -15,6 +15,9 @@ A comprehensive **Model Context Protocol (MCP) server** that enables AI agents t
 
 This project addresses the critical challenge of creating a reliable, secure interface layer for autonomous agents to interact with real-world APIs. As agents transition from research to production environments, they require robust identity, scoping, and trust frameworks to operate autonomously at scale. Our MCP server serves as a foundational building block in this new software architecture, enabling agents to safely invoke tools and automate operations with integrated Descope authentication and Cequence MCP proxy security.
 
+# YouTube Link
+https://youtu.be/SqHEs32dtBQ?si=rBs-IuEbRcR0giB8
+
 ## What We Built
 
 ### Core Features
